@@ -49,12 +49,13 @@ class PagePartAdminTwigExtension extends \Twig_Extension
      * @param PagePartAdmin $ppAdmin    The pagepart admin to render
      * @param Form          $form       The form
      * @param array         $parameters Additional variables passed to the template
+     * @param string        $template   Template used to render the page parts
      *
      * @return string The html markup
      */
-    public function renderWidget(PagePartAdmin $ppAdmin , $form = null , array $parameters = array())
+    public function renderWidget(PagePartAdmin $ppAdmin , $form = null , array $parameters = array(), $template = "KunstmaanPagePartBundle:PagePartAdminTwigExtension:widget.html.twig")
     {
-        $template = $this->environment->loadTemplate("KunstmaanPagePartBundle:PagePartAdminTwigExtension:widget.html.twig");
+        $template = $this->environment->loadTemplate($template);
 
         return $template->render(array_merge($parameters, array(
             'pagepartadmin' => $ppAdmin,

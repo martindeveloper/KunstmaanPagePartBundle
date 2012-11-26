@@ -1,5 +1,6 @@
 parameters:
 #    kunstmaan_k_page_part.example.class: Kunstmaan\PagePartBundle\Example
+    kunstmaan_pageparts.edit_node.listener.class: Kunstmaan\PagePartBundle\EventListener\NodeListener
 
 services:
 #    kunstmaan_k_page_part.example:
@@ -24,7 +25,7 @@ services:
             - { name: twig.extension }
 
     kunstmaan_pageparts.edit_node.listener:
-        class: Kunstmaan\PagePartBundle\EventListener\NodeListener
+        class: "%kunstmaan_pageparts.edit_node.listener.class%"
         arguments: ["@request", "@doctrine.orm.entity_manager", "@form.factory", "@kunstmaan_pagepartadmin.factory"]
         scope: request
         tags:
