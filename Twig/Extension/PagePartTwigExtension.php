@@ -3,6 +3,7 @@
 namespace Kunstmaan\PagePartBundle\Twig\Extension;
 
 use Doctrine\ORM\EntityManager;
+use Kunstmaan\PagePartBundle\Entity\AbstractPagePart;
 use Kunstmaan\PagePartBundle\Repository\PagePartRefRepository;
 use Kunstmaan\PagePartBundle\Helper\PagePartInterface;
 use Kunstmaan\PagePartBundle\Helper\HasPagePartsInterface;
@@ -43,6 +44,7 @@ class PagePartTwigExtension extends \Twig_Extension
     {
         return array(
             'render_pageparts'  => new \Twig_Function_Method($this, 'renderPageParts', array('needs_context' => true, 'is_safe' => array('html'))),
+            'render_pagepart'  => new \Twig_Function_Method($this, 'renderPagePart', array('needs_context' => true, 'is_safe' => array('html'))),
             'getpageparts'  => new \Twig_Function_Method($this, 'getPageParts'),
         );
     }
@@ -65,6 +67,24 @@ class PagePartTwigExtension extends \Twig_Extension
             'pageparts' => $pageparts
         ));
         $newTwigContext = array_merge($newTwigContext, $twigContext);
+
+        return $template->render($newTwigContext);
+    }
+
+    /**
+     * @param array                 $twigContext The twig context
+     * @param AbstractPagePart      $pagePart        The pagepart
+     * @param array                 $parameters  Some extra parameters
+     *
+     * @return string
+     */
+    public function renderPagePart(array $twigContext, AbstractPagePart $pagePart, array $parameters = array())
+    {
+        $template = $this->environment->loadTemplate($pagePart->getDefaultView());
+        $newTwigContext = array_merge($parameters, array(
+            'resource' => $pagePart
+        ));
+        $newTwigContext = array_merge($twigContext, $newTwigContext);
 
         return $template->render($newTwigContext);
     }
