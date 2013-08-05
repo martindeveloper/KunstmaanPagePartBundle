@@ -1,11 +1,10 @@
 <?php
 
 namespace Kunstmaan\PagePartBundle\Entity;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Email;
-use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Doctrine\ORM\Mapping as ORM;
+
 use Kunstmaan\PagePartBundle\Form\HeaderPagePartAdminType;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class that defines a header page part object to add to a page
@@ -17,23 +16,16 @@ class HeaderPagePart extends AbstractPagePart
 {
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $niv;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="string", nullable=true)
      */
     protected $title;
-
-    /**
-     * @param ClassMetadata $metadata
-     */
-    public static function loadValidatorMetadata(ClassMetadata $metadata)
-    {
-        $metadata->addPropertyConstraint('niv', new NotBlank(array('message' => 'headerpagepart.niv.not_blank')));
-        $metadata->addPropertyConstraint('title', new NotBlank(array('message' => 'headerpagepart.title.not_blank')));
-    }
 
     /**
      * Set niv

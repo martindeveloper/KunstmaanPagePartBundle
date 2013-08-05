@@ -32,28 +32,6 @@ class HeaderPagePartTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Kunstmaan\PagePartBundle\Entity\HeaderPagePart::loadValidatorMetadata
-     */
-    public function testLoadValidatorMetadata()
-    {
-        $metadata = $this->getMockBuilder('Symfony\Component\Validator\Mapping\ClassMetadata')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $metadata
-            ->expects($this->at(0))
-            ->method('addPropertyConstraint')
-            ->with('niv', $this->anyThing());
-
-        $metadata
-            ->expects($this->at(1))
-            ->method('addPropertyConstraint')
-            ->with('title', $this->anyThing());
-
-        HeaderPagePart::loadValidatorMetadata($metadata);
-    }
-
-    /**
      * @covers Kunstmaan\PagePartBundle\Entity\HeaderPagePart::setNiv
      * @covers Kunstmaan\PagePartBundle\Entity\HeaderPagePart::getNiv
      */
